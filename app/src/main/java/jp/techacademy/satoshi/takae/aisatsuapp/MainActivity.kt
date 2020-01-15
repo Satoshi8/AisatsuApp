@@ -19,22 +19,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         pickTimeBtn.setOnClickListener(this)
 
     }
-    override fun onClick(v:View){
-       showTimePickerDialog()
+
+    override fun onClick(v: View) {
+        showTimePickerDialog()
+    }
+
+    private fun showTimePickerDialog() {
+        val timePickerDialog =
+            TimePickerDialog(this, TimePickerDialog.onTimeSetListener() {
+
+                TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                    if (hourOfDay >= 2 && minute >= 0) {
+                        textView.setText("おはようございます")
+                    } else if (hourOfDay >= 10 && minute >= 0) {
+                        textView.setText("こんにちは")
+                    } else if (hourOfDay >= 18 && minute >= 0) {
+                        textView.setText("こんばんは")
+                    }
+                }
+            }, 13, 0, true)
+        timePickerDialog.show()
     }
 }
- private fun showTimePickerDialog() {
-     val timePickerDialog = TimePickerDialog(MainActivity.this,TimePickerDialog.onTimeSetListener(){
-
-     TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-         if (hourOfDay >= 2 && minute >= 0) {
-             textView.setText("おはようございます")
-         } else if (hourOfDay >= 10 && minute >= 0) {
-             textView.setText("こんにちは")
-         } else if (hourOfDay >= 18 && minute >= 0) {
-             textView.setText("こんばんは")
-         }
-     }
-     },13,0,true)
-timePickerDialog.show()
-    }
